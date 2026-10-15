@@ -32,8 +32,9 @@
     }).join('');
   }
   function linkHTML(url, html, className, label) {
-    if (!/^https?:\/\//i.test(url || '')) return html;
-    return '<a href="' + escape(url) + '"' + (className ? ' class="' + className + '"' : '') + (label ? ' aria-label="' + escape(label) + '"' : '') + ' target="_blank" rel="noopener noreferrer">' + html + '</a>';
+    var email = /^mailto:[^\s<>]+@[^\s<>]+$/i.test(url || '');
+    if (!email && !/^https?:\/\//i.test(url || '')) return html;
+    return '<a href="' + escape(url) + '"' + (className ? ' class="' + className + '"' : '') + (label ? ' aria-label="' + escape(label) + '"' : '') + (email ? '' : ' target="_blank" rel="noopener noreferrer"') + '>' + html + '</a>';
   }
   function titleHTML(slide) {
     var title = String(slide.title), keyword = String(slide.highlight || '');
@@ -42,10 +43,14 @@
   }
   function sourceHTML(source) {
     if (!source || source.status !== 'confirmed') return '';
-    var text = escape(source.label) + (source.date ? ' · ' + escape(source.date) : '');
-    return linkHTML(source.url, text) + (source.references || []).map(function (reference) {
-      return ' · ' + linkHTML(reference.url, escape(reference.label));
-    }).join('');
+    if (source.label === 'Estimativa: gas BSC 0,05 gwei × cotação BNB') {
+      var price = (source.references || []).find(function (reference) { return reference.label === 'Cotação BNB'; });
+      var rpc = (source.references || []).find(function (reference) { return reference.label === 'RPC BSC'; });
+      return 'Estimativa: ' + linkHTML(rpc && rpc.url, 'gas BSC') + ' ' + linkHTML(source.url, '0,05 gwei') + ' × ' + linkHTML(price && price.url, 'cotação BNB') + ' · ' + escape(source.date);
+    }
+    var label = source.label.split(':')[0].replace(' / Franklin', '');
+    var date = (source.date || '').replace(/^Consulta: /, '').split(' · ')[0].replace(' (anúncio)', '');
+    return linkHTML(source.url, escape(label)) + (date ? ' · ' + escape(date) : '');
   }
   function countHTML(value) {
     return escape(value).replace(/\d+(?:,\d+)?/g, function (number) {
@@ -66,8 +71,8 @@
     if (kind === 'cover') {
       body = '<div class="cover-meta"><p class="cover-author">' + escape(deck.author) + '</p><p class="cover-date">' + escape(deck.date) + '</p><div class="cover-rule" aria-hidden="true"></div></div>' + bulletsHTML(slide.bullets);
     } else if (kind === 'closing') {
-      body = '<p class="thanks">' + escape(slide.bullets[0]) + '</p><nav class="social-links" aria-label="Redes sociais de Stefano Cintioli">' + (deck.socials || []).filter(function (social) { return /^https?:\/\//i.test(social.url); }).map(function (social) {
-        return linkHTML(social.url, escape(social.label));
+      body = '<p class="thanks">' + escape(slide.bullets[0]) + '</p><nav class="social-links" aria-label="Redes sociais de Stefano Cintioli">' + (deck.socials || []).filter(function (social) { return /^(https?:\/\/|mailto:)/i.test(social.url); }).map(function (social) {
+        return linkHTML(social.url, social.svg || escape(social.label), 'social-link', social.label);
       }).join('') + '</nav>';
     } else if (kind === 'stats') {
       body = '<div class="stats-grid">' + slide.bullets.map(function (bullet, i) {
@@ -79,11 +84,12 @@
       body = '<div class="product-grid">' + slide.bullets.map(function (bullet, i) {
         var pieces = bullet.split(' · ');
         var source = sources[i] || {};
-        return '<section class="product"><h2 class="product-name">' + linkHTML(source.productUrl || source.url, escape(pieces[0]), 'data-link') + '</h2><p class="product-description">' + linkHTML(source.productUrl || source.url, escape(pieces[1]), 'data-link') + '</p><p class="product-stat">' + linkHTML(source.url, numbered(pieces[2]), 'data-link') + '</p></section>';
+        return '<section class="product"><h2 class="product-name">' + linkHTML(source.productUrl || source.url, escape(pieces[0]), 'data-link') + '</h2><p class="product-description">' + linkHTML(source.productUrl || source.url, escape(pieces[1]), 'data-link') + '</p><p class="product-stat">' + linkHTML(source.url, numbered(pieces[2]), 'data-link') + '</p><p class="product-source">' + sourceHTML(source) + '</p></section>';
       }).join('') + '</div>';
     } else body = bulletsHTML(slide.bullets, sources);
-    var sourceLine = kind === 'stats' ? '<a href="SOURCES.md" target="_blank" rel="noopener noreferrer">Fontes, recortes e cálculo da estimativa</a>' : sources.map(sourceHTML).join('<span class="source-separator"> · </span>');
-    return '<article id="slide-' + escape(slide.id) + '" class="slide slide-' + kind + '" aria-labelledby="title-' + escape(slide.id) + '" aria-hidden="true" inert><header class="slide-header"><p class="section">' + String(index + 1).padStart(2, '0') + ' · ' + escape(slide.section) + '</p><h1 id="title-' + escape(slide.id) + '">' + titleHTML(slide) + '</h1></header><div class="slide-body">' + body + '</div><footer class="slide-footer"><div class="source-line">' + sourceLine + '</div><p class="slide-counter">' + String(index + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0') + '</p>' + (kind === 'closing' ? '<p class="disclaimer">' + escape(deck.disclaimer) + '</p>' : '') + '<div class="progress" role="progressbar" aria-label="Progresso da apresentação" aria-valuemin="1" aria-valuemax="' + total + '" aria-valuenow="' + (index + 1) + '"><span style="width:' + ((index + 1) / total * 100) + '%"></span></div></footer></article>';
+    var sourceLine = kind === 'stats' || kind === 'products' ? '<a href="SOURCES.md" target="_blank" rel="noopener noreferrer">Fontes e detalhes: SOURCES.md</a>' : sources.map(sourceHTML).join('<span class="source-separator"> · </span>');
+    var numeral = kind === 'normal' ? '<span class="ghost-number" aria-hidden="true">' + String(index + 1).padStart(2, '0') + '</span>' : '';
+    return '<article id="slide-' + escape(slide.id) + '" class="slide slide-' + kind + '" aria-labelledby="title-' + escape(slide.id) + '" aria-hidden="true" inert>' + numeral + '<header class="slide-header"><p class="section">' + String(index + 1).padStart(2, '0') + ' · ' + escape(slide.section) + '</p><h1 id="title-' + escape(slide.id) + '">' + titleHTML(slide) + '</h1></header><div class="slide-body">' + body + '</div><footer class="slide-footer"><div class="source-line">' + (kind === 'closing' ? escape(deck.disclaimer) : sourceLine) + '</div><p class="slide-counter">' + String(index + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0') + '</p></footer><div class="progress" role="progressbar" aria-label="Progresso da apresentação" aria-valuemin="1" aria-valuemax="' + total + '" aria-valuenow="' + (index + 1) + '"><span style="width:' + ((index + 1) / total * 100) + '%"></span></div></article>';
   }
 
   if (typeof module !== 'undefined' && module.exports) module.exports = { indexFromHash: indexFromHash, commandForKey: commandForKey, destination: destination, swipeCommand: swipeCommand, renderSlide: renderSlide };

@@ -4,10 +4,31 @@ window.CRIPTO_DECK = {
   "date": "15/10/2026",
   "disclaimer": "Conteúdo educativo, sem recomendação de investimento.",
   "socials": [
-    { "label": "X", "url": "https://x.com/s_cintioli_" },
-    { "label": "LinkedIn", "url": "https://linkedin.com/in/stefanocintioli" },
-    { "label": "Telegram", "url": "https://t.me/StefanoCintioli" },
-    { "label": "GitHub", "url": "https://github.com/Stefano-Cintioli" }
+    {
+      "label": "X",
+      "url": "https://x.com/s_cintioli_",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" fill=\"currentColor\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path d=\"M215,219.85a8,8,0,0,1-7,4.15H160a8,8,0,0,1-6.75-3.71l-40.49-63.63L53.92,221.38a8,8,0,0,1-11.84-10.76l61.77-68L41.25,44.3A8,8,0,0,1,48,32H96a8,8,0,0,1,6.75,3.71l40.49,63.63,58.84-64.72a8,8,0,0,1,11.84,10.76l-61.77,67.95,62.6,98.38A8,8,0,0,1,215,219.85Z\"></path></svg>"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://linkedin.com/in/stefanocintioli",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" fill=\"currentColor\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path d=\"M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24ZM96,176a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0ZM88,96a12,12,0,1,1,12-12A12,12,0,0,1,88,96Zm96,80a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140Z\"></path></svg>"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/Stefano-Cintioli",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" fill=\"currentColor\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path d=\"M216,104v8a56.06,56.06,0,0,1-48.44,55.47A39.8,39.8,0,0,1,176,192v40a8,8,0,0,1-8,8H104a8,8,0,0,1-8-8V216H72a40,40,0,0,1-40-40A24,24,0,0,0,8,152a8,8,0,0,1,0-16,40,40,0,0,1,40,40,24,24,0,0,0,24,24H96v-8a39.8,39.8,0,0,1,8.44-24.53A56.06,56.06,0,0,1,56,112v-8a58.14,58.14,0,0,1,7.69-28.32A59.78,59.78,0,0,1,69.07,28,8,8,0,0,1,76,24a59.75,59.75,0,0,1,48,24h24a59.75,59.75,0,0,1,48-24,8,8,0,0,1,6.93,4,59.74,59.74,0,0,1,5.37,47.68A58,58,0,0,1,216,104Z\"></path></svg>"
+    },
+    {
+      "label": "Telegram",
+      "url": "https://t.me/StefanoCintioli",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" fill=\"currentColor\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path d=\"M228.88,26.19a9,9,0,0,0-9.16-1.57L17.06,103.93a14.22,14.22,0,0,0,2.43,27.21L72,141.45V200a15.92,15.92,0,0,0,10,14.83,15.91,15.91,0,0,0,17.51-3.73l25.32-26.26L165,220a15.88,15.88,0,0,0,10.51,4,16.3,16.3,0,0,0,5-.79,15.85,15.85,0,0,0,10.67-11.63L231.77,35A9,9,0,0,0,228.88,26.19ZM175.53,208,92.85,135.5l119-85.29Z\"></path></svg>"
+    },
+    {
+      "label": "Email",
+      "url": "mailto:stefano.cintioli@bnbchain.org",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1em\" height=\"1em\" fill=\"currentColor\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path d=\"M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z\"></path></svg>"
+    }
   ],
   "slides": [
     {
@@ -393,7 +414,7 @@ window.CRIPTO_DECK = {
       ],
       "source": [
         {
-          "label": "BNB Chain: holders são endereços, não pessoas",
+          "label": "@BNBCHAIN",
           "url": "https://x.com/BNBCHAIN/status/2107803255422034140",
           "date": "07/10/2026",
           "status": "confirmed",
@@ -402,7 +423,7 @@ window.CRIPTO_DECK = {
           ]
         },
         {
-          "label": "BNB Chain: tempos da rede, não de resgate",
+          "label": "BNB Chain blog",
           "url": "https://www.bnbchain.org/en/blog/behind-the-suits-with-franklin-templeton",
           "date": "04/08/2026",
           "status": "confirmed",
@@ -411,8 +432,8 @@ window.CRIPTO_DECK = {
           ]
         },
         {
-          "label": "DefiLlama: snapshot do valor em circulação na BSC",
-          "url": "https://stablecoins.llama.fi/stablecoinchains",
+          "label": "DefiLlama",
+          "url": "https://defillama.com/stablecoins/BSC",
           "date": "14/10/2026",
           "status": "confirmed",
           "bullets": [
@@ -420,21 +441,21 @@ window.CRIPTO_DECK = {
           ]
         },
         {
-          "label": "Estimativa nativa: gas de 2025, não tarifa de RWA",
-          "url": "https://www.bnbchain.org/en/blog/tech-roadmap-2026",
-          "date": "14/10/2026 (cotação)",
+          "label": "Estimativa: gas BSC 0,05 gwei × cotação BNB",
+          "url": "https://docs.bnbchain.org/bnb-smart-chain/overview/",
+          "date": "14/10/2026",
           "status": "confirmed",
           "bullets": [
             3
           ],
           "references": [
             {
-              "label": "Gas: Ethereum",
-              "url": "https://ethereum.org/developers/docs/gas/"
+              "label": "RPC BSC",
+              "url": "https://docs.bnbchain.org/bnb-smart-chain/developers/json_rpc/json-rpc-endpoint/"
             },
             {
-              "label": "Cotação: Binance",
-              "url": "https://www.binance.com/en/price/bnb"
+              "label": "Cotação BNB",
+              "url": "https://defillama.com/token/BNB"
             }
           ]
         }

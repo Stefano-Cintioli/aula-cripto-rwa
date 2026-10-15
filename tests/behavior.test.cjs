@@ -25,9 +25,23 @@ test('each factual bullet links to its mapped official reference', () => {
   assert.equal((html.match(/class="data-link"/g)||[]).length,2);
 });
 test('closing social links stay native links and reject unsafe protocols', () => {
-  const html=app.renderSlide({id:'15',section:'Fechamento',title:'Obrigado',bullets:['Obrigado','Até a próxima']},14,15,{socials:[{label:'X',url:'https://x.com/s_cintioli_'},{label:'Bad',url:'javascript:alert(1)'}]});
-  assert.match(html,/href="https:\/\/x\.com\/s_cintioli_"[^>]*target="_blank"/);
+  const html=app.renderSlide({id:'15',section:'Fechamento',title:'Obrigado',bullets:['Obrigado','Até a próxima']},14,15,{socials:[{label:'X',url:'https://x.com/s_cintioli_'},{label:'Email',url:'mailto:stefano.cintioli@bnbchain.org'},{label:'Bad',url:'javascript:alert(1)'}]});
+  assert.match(html,/href="https:\/\/x\.com\/s_cintioli_"[^>]*aria-label="X"[^>]*target="_blank"/);
+  assert.match(html,/<a href="mailto:stefano\.cintioli@bnbchain\.org" class="social-link" aria-label="Email">Email<\/a>/);
   assert.equal(html.includes('javascript:'),false);
+});
+test('fee source preserves exact caption and links gas, RPC and readable price', () => {
+  const fs = require('node:fs'), vm = require('node:vm');
+  const context = {window:{}};
+  vm.runInNewContext(fs.readFileSync(require.resolve('../src/deck.js'),'utf8'),context);
+  const deck = context.window.CRIPTO_DECK;
+  const html = app.renderSlide(deck.slides[11],11,15,deck);
+  assert.match(html,/href="https:\/\/docs\.bnbchain\.org\/bnb-smart-chain\/overview\/"/);
+  assert.match(html,/href="https:\/\/docs\.bnbchain\.org\/bnb-smart-chain\/developers\/json_rpc\/json-rpc-endpoint\/"/);
+  assert.match(html,/href="https:\/\/defillama\.com\/token\/BNB"/);
+  assert.match(html,/href="https:\/\/defillama\.com\/stablecoins\/BSC"/);
+  assert.match(html.replace(/<[^>]+>/g,''),/Estimativa: gas BSC 0,05 gwei × cotação BNB · 14\/10\/2026/);
+  assert.doesNotMatch(html,/gas de 2025|Gas: Ethereum|stablecoins\.llama\.fi/);
 });
 test('vertical gestures and small touches never change slides', () => {
   assert.equal(app.swipeCommand(-90, 12), 'next');

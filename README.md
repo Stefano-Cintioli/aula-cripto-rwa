@@ -33,7 +33,7 @@ python3 -m http.server 4187 --bind 127.0.0.1
 - Swipe horizontal permite avançar ou voltar no celular.
 - O hash mantém o slide atual, por exemplo `#5`.
 - Os dados e bullets factuais abrem suas fontes em outra aba. Os links não mudam o slide.
-- O encerramento contém X, LinkedIn, Telegram e GitHub de Stefano.
+- O encerramento contém os ícones do portfólio para X, LinkedIn, GitHub, Telegram e Email de Stefano. O email usa `mailto:`; os demais links abrem outra aba.
 
 Para um PDF de backup, use a impressão do navegador: um slide por página, em fundo branco. Desative cabeçalhos/rodapés do navegador e mantenha escala de 100%.
 

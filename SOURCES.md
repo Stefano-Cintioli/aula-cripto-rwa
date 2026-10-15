@@ -1,14 +1,16 @@
 # Fontes, dados e exemplos · Fase 2
 
-Deck simplificado em 15/10/2026. Os snapshots e as datas-base abaixo permanecem os verificados em 14/10; esta revisão não atualiza as métricas. Somente dados `confirmed` aparecem nos slides. O registro de pendências permanece aqui para consulta.
+Deck simplificado em 15/10/2026. Os snapshots e as datas-base abaixo permanecem os verificados em 14/10; esta revisão não atualiza as métricas exibidas. A estimativa de taxa mantém o mesmo arredondamento e passa a usar a documentação da BSC e a cotação histórica da DefiLlama, verificadas em 15/10. Somente dados `confirmed` aparecem nos slides. O registro de pendências permanece aqui para consulta.
 
 Consulta em **14/10/2026**, data local de Buenos Aires. Fontes primárias dos emissores, da rede e dos provedores de dados. `confirmed` sustenta o recorte registrado; não significa auditoria independente. `[DADO A CONFIRMAR]` fica fora da fala factual. Dados dinâmicos exigem nova consulta antes da apresentação.
 
 Valores são USD. Na apresentação, o recorte BNB Chain dos painéis corresponde à BNB Smart Chain (BSC); não agrega opBNB. **Valor distribuído, TVL de DeFi, market cap, negociações e transferências são métricas diferentes.** Endereços holders não são pessoas únicas. Não somar categorias sobrepostas.
 
-As APIs abaixo não publicam timestamp de cálculo. “Snapshot consultado em 14/10” identifica observação, e o horário UTC registra a captura quando disponível. O total de stablecoins foi calculado somando os campos já convertidos para USD de `stablecoinchains`; o endpoint `stablecoincharts/BSC` da Fase 1 não foi adotado como um total intercambiável. A leitura fresca resolveu o uso principal com US$ 13,14 bi, em vez de repetir US$ 13,2 bi; o TVL fresco passou de US$ 5,33 bi aproximados para US$ 5,32 bi.
+As APIs de totais de stablecoins e TVL abaixo não publicam timestamp de cálculo. “Snapshot consultado em 14/10” identifica observação, e o horário UTC registra a captura quando disponível. O total de stablecoins foi calculado somando os campos já convertidos para USD de `stablecoinchains`; o endpoint `stablecoincharts/BSC` da Fase 1 não foi adotado como um total intercambiável. A leitura fresca resolveu o uso principal com US$ 13,14 bi, em vez de repetir US$ 13,2 bi; o TVL fresco passou de US$ 5,33 bi aproximados para US$ 5,32 bi. A API histórica de cotação da DefiLlama informa o timestamp do preço.
 
 **Seleção aprovada:** BUIDL via Securitize, Franklin Templeton/Benji e Ondo USDY. USYC fica como reserva. VBILL e TBILL não foram selecionados. A campanha de zero fee é temporária e fica fora da apresentação principal.
+
+**Verificação de links em 15/10/2026:** GET das URLs externas do deck e das substitutas legíveis retornou HTTP 200 com HTML ou PDF, salvo a antiga API de stablecoins (HTTP 200 com JSON) e a antiga página de cotação da Binance (HTTP 202 sem conteúdo). Os links projetados passam a abrir o painel legível de stablecoins da DefiLlama e a página legível de BNB. As APIs de snapshots e de preço histórico continuam documentadas apenas aqui, para rastrear os dados. `mailto:` é um endereço de e-mail, sem status HTTP.
 
 ## Dados da infraestrutura
 
@@ -57,6 +59,7 @@ As APIs abaixo não publicam timestamp de cálculo. “Snapshot consultado em 14
 ### BSC-STABLECOINS · DefiLlama · stablecoinchains/BSC
 
 - **Fonte:** [DefiLlama · stablecoinchains/BSC](https://stablecoins.llama.fi/stablecoinchains).
+- **Link legível usado na apresentação:** [DefiLlama · stablecoins na BSC](https://defillama.com/stablecoins/BSC), consultado em 2026-10-15. O painel é dinâmico; o snapshot registrado abaixo permanece o de 14/10.
 - **Data-base/recorte temporal:** 2026-10-14 (snapshot consultado). **Acesso:** 2026-10-14. **Status:** `confirmed`.
 - **Recorte:** Soma dos valores em USD de totalCirculatingUSD da linha name=BSC.
 - **Registro:** US$ 13.137.181.978,24, ou US$ 13,14 bilhões. Captura 19:16:14 UTC. O endpoint não informa timestamp de cálculo; esta data identifica a observação. Soma em USD, não unidades nominais. Difere dos US$ 13,2 bilhões aproximados do briefing por atualização da fonte; não usar stablecoincharts/BSC como total intercambiável.
@@ -84,19 +87,28 @@ As APIs abaixo não publicam timestamp de cálculo. “Snapshot consultado em 14
 - **Recorte:** Métricas técnicas reportadas no artigo.
 - **Registro:** Bloco de 0,45 s e finality de 1,125 s. Preservar a data e a atribuição. Tempo de resgate do fundo e tempo de uma exchange são diferentes. Substitui no deck a antiga métrica Memory Finality de 0,65 s.
 
-### BSC-GAS · BNB Chain · Tech Roadmap 2026
+### BSC-GAS · BNB Chain · documentação da BSC
 
-- **Fonte:** [BNB Chain · Tech Roadmap 2026](https://www.bnbchain.org/en/blog/tech-roadmap-2026).
-- **Data-base/recorte temporal:** 2025-12-30. **Acesso:** 2026-10-14. **Status:** `confirmed`.
-- **Recorte:** Resultado histórico de gas price em 2025.
-- **Registro:** Gas price de 0,05 gwei reportado como resultado de 2025. É uma premissa do exemplo didático de custo, não uma tarifa observada de uma operação RWA.
+- **Fonte:** [BNB Chain · BNB Smart Chain overview](https://docs.bnbchain.org/bnb-smart-chain/overview/).
+- **Data-base/recorte temporal:** Documentação consultada em 2026-10-15; sem data de publicação indicada. **Acesso:** 2026-10-15. **Status:** `confirmed`.
+- **Recorte:** Gas price padrão da BSC descrito na documentação, usado como premissa da estimativa.
+- **Registro:** A documentação informa a adoção de gas price padrão de 0,05 gwei na BSC. Não é uma medição de cada transação em 14/10 nem uma tarifa observada de uma operação RWA. Substitui a antiga referência ao resultado histórico do roadmap.
 
-### BNB-PRICE · Binance · cotação de BNB em USD
+### BSC-RPC · BNB Chain · documentação de JSON-RPC
 
-- **Fonte:** [Binance · cotação de BNB em USD](https://www.binance.com/en/price/bnb).
-- **Data-base/recorte temporal:** 2026-10-14T18:46:00Z. **Acesso:** 2026-10-14. **Status:** `confirmed`.
-- **Recorte:** Preço de referência exibido pela Binance no timestamp publicado na página.
-- **Registro:** US$ 727,92 por BNB. Preço dinâmico; captura do texto em 14/10. O valor de US$ 727,88 informado no briefing não foi capturado independentemente; o cálculo usa US$ 727,92.
+- **Fonte:** [BNB Chain · JSON-RPC endpoint](https://docs.bnbchain.org/bnb-smart-chain/developers/json_rpc/json-rpc-endpoint/).
+- **Data-base/recorte temporal:** Documentação consultada em 2026-10-15; sem data de publicação indicada. **Acesso:** 2026-10-15. **Status:** `confirmed`.
+- **Recorte:** Documentação legível dos endpoints e das APIs da BSC.
+- **Registro:** Referência técnica para consultar dados da rede e estimar transações. O link abre a documentação, não uma resposta JSON de RPC. Não é fonte da cotação de BNB nem prova isolada do custo estimado.
+
+### BNB-PRICE · DefiLlama · cotação histórica de BNB em USD
+
+- **Fonte legível usada na apresentação:** [DefiLlama · BNB](https://defillama.com/token/BNB).
+- **Evidência histórica:** [DefiLlama · cotação de BNB em 14/10/2026 às 18:46 UTC](https://coins.llama.fi/prices/historical/1792003560/coingecko:binancecoin). Esta API fica apenas neste registro de fontes; o slide abre a página legível.
+- **Data-base/recorte temporal:** 2026-10-14T18:46:00Z. **Acesso:** 2026-10-15. **Status:** `confirmed`.
+- **Recorte:** Preço histórico de BNB em USD, identificado por `coingecko:binancecoin`, retornado pela DefiLlama.
+- **Registro:** US$ 728,1758648856108 por BNB; timestamp retornado `1792003560`; confidence `0.99`. A página legível mostra cotação dinâmica e não deve ser tratada como a captura histórica.
+- **Nota de revisão:** A primeira estimativa usava US$ 727,92 da [Binance](https://www.binance.com/en/price/bnb), observado em 2026-10-14T18:46:00Z. A premissa agora é a cotação histórica verificada na DefiLlama; o resultado exibido continua cerca de US$ 0,0008. O valor de US$ 727,88 informado no briefing não foi capturado independentemente.
 
 ### EVM-NATIVE-GAS · Ethereum · gas e taxas
 
@@ -107,10 +119,11 @@ As APIs abaixo não publicam timestamp de cálculo. “Snapshot consultado em 14
 
 ### BSC-NATIVE-FEE-ESTIMATE · Cálculo didático · taxa nativa estimada
 
-- **Fonte:** [Cálculo didático · taxa nativa estimada](https://www.binance.com/en/price/bnb).
-- **Data-base/recorte temporal:** 2026-10-14 (cotação; gas histórico de 2025). **Acesso:** 2026-10-14. **Status:** `confirmed`.
-- **Recorte:** 21.000 gas × 0,05 gwei × US$ 727,92/BNB.
-- **Registro:** Resultado: 0,00000105 BNB = US$ 0,000764316, arredondado para cerca de US$ 0,0008. Estimativa calculada, não tarifa média atual nem custo de negociar ou resgatar RWA. Fontes das premissas: BSC-GAS, BNB-PRICE, EVM-NATIVE-GAS.
+- **Fontes:** [BNB Chain · gas padrão da BSC](https://docs.bnbchain.org/bnb-smart-chain/overview/), [BNB Chain · documentação RPC](https://docs.bnbchain.org/bnb-smart-chain/developers/json_rpc/json-rpc-endpoint/) e [DefiLlama · cotação de BNB](https://defillama.com/token/BNB), com evidência histórica em BNB-PRICE.
+- **Data-base/recorte temporal:** 2026-10-14T18:46:00Z para a cotação; gas padrão descrito na documentação consultada em 2026-10-15. **Acesso:** 2026-10-15. **Status:** `confirmed`.
+- **Recorte:** 21.000 gas × 0,05 gwei × US$ 728,1758648856108/BNB.
+- **Registro:** Resultado: 0,00000105 BNB = US$ 0,0007645846581298915, arredondado para cerca de US$ 0,0008. Estimativa calculada, não tarifa média atual nem custo de negociar ou resgatar RWA. Fontes das premissas: BSC-GAS, BNB-PRICE, EVM-NATIVE-GAS; documentação de consulta: BSC-RPC.
+- **Linha curta do slide 12:** “Estimativa: gas BSC 0,05 gwei × cotação BNB · 14/10/2026”. O cálculo completo e as datas de cada premissa permanecem neste registro.
 
 ### BSC-EVM · BNB Chain · documentação BSC
 

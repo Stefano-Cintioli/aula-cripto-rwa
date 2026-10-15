@@ -1,0 +1,12 @@
+.git
+.superpowers
+docs
+review
+tests
+ANALYSIS.md
+outline.md
+README.md
+DEPLOYMENT.md
+*.log
+node_modules
+package-lock.json

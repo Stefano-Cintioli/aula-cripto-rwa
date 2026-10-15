@@ -1,0 +1,11 @@
+.vercel/
+review/
+docs/
+.superpowers/
+ANALYSIS.md
+outline.md
+DEPLOYMENT.md
+node_modules/
+*.log
+.DS_Store
+.env*
